@@ -229,7 +229,7 @@ if (file_exists($currentdir ."/captions.txt"))
 							"size" => filesize($currentdir . "/" . $file),
 				  			"html" => 	"<li  class='thumbnail'>"
 										."<a href='" . $currentdir . "/" . $file . "' rel='lightbox[billeder]' title='$img_captions[$file]'>"
-										."<img class='detalle' data-original-title='mars.jpg' data-content='Dimensiones: media&lt;br/&gt;Seccion:deportes' src='" . GALLERY_ROOT . "createthumb.php?filename=" . $thumbdir . "/" . $file . "&amp;size=$thumb_size' alt='$label_loading' />"
+										."<img class='detalle' data-original-title='".$file."' data-content='Dimensiones: media&lt;br/&gt;Seccion:deportes' src='" . GALLERY_ROOT . "createthumb.php?filename=" . $thumbdir . "/" . $file . "&amp;size=$thumb_size' alt='$label_loading' />"
 										."</a>"										
 										."</li>");
 		  			}
