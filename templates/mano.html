@@ -1,0 +1,149 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset="utf-8"> 
+    <title>Articulos</title> 
+    	<link type="text/css" rel="stylesheet" href="http://localhost/gr/public/assets//css//bootstrap.css?1341504908" />
+
+	<link type="text/css" rel="stylesheet" href="http://localhost/gr/public/assets//css//bootstrap-responsive.css?1340657948" />
+
+	<link type="text/css" rel="stylesheet" href="http://localhost/gr/public/assets//css//custom.css?1341508872" />
+
+    <style> 
+        body {
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+ 
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+ 
+    </style> 
+</head> 
+<body> 
+<!-- begin header --> 
+<div class="navbar navbar-fixed-top"> 
+    <div class="navbar-inner"> 
+        <div class="container-fluid"> 
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+ 
+                <span class="icon-bar"></span> 
+ 
+                <span class="icon-bar"></span> 
+ 
+                <span class="icon-bar"></span> 
+ 
+            </a> 
+ 
+            <a class="brand" href="#">Cat&aacute;logo</a> 
+            
+            <div class="nav-collapse"> 
+ 
+                <ul class="nav"> 
+ 
+                    <li class="active"><a href="#">Home</a></li> 
+ 
+                    <li><a href="../album">Cat&aacute;logo</a></li> 
+ 
+                    <li><a href="#contact">Ayuda</a></li> 
+ 
+                </ul> 
+ 
+            </div> 
+ 
+            <!--/.nav-collapse --> 
+ 
+        </div> 
+ 
+    </div> 
+ 
+    <!--breadcrumb--> 
+ 
+</div> 
+<!-- end header --> 
+ 
+<div class="container"> 
+ 
+ 
+    <div class="row"><!-- begin content--> 
+	
+<h1>Catalogo</h1>
+<% messages %>
+
+<span id="breadcrumb_nav"><% breadcrumb_navigation %></span>
+<div id="container">
+<ul class="thumbnails">
+<% thumbnails %>
+</ul>
+</div>
+<br />
+<div id="page_nav"><% page_navigation %></div>
+<br />
+ </div><!-- end page content--> 
+ 
+ 
+    </div><!-- end content--> 
+    <footer> 
+        <p class="pull-right">Page rendered in 0.0761s using 5.087mb of memory.</p> 
+        <p> 
+            <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.<br> 
+            <small>Version: 1.2.1</small> 
+        </p> 
+    </footer> 
+ 
+</div> 
+ 
+ 
+<!-- Le javascript
+ 
+ 
+ 
+================================================== --> 
+ 
+<!-- Placed at the end of the document so the pages load faster --> 
+ 
+	<script type="text/javascript" src="http://localhost/fotos//assets/js/app/lib/head.js"></script> 
+	<script type="text/javascript" src="http://localhost/gr/public/assets//js//jquery.js?1340657950"></script>
+
+	<script type="text/javascript" src="http://localhost/gr/public/assets//js//bootstrap.js?1340657948"></script>
+
+	<script type="text/javascript" src="http://localhost/gr/public/assets//js//bootbox.js?1340749448"></script>
+
+	<script type="text/javascript" src="http://localhost/gr/public/assets//js//custom.js?1341505700"></script>
+
+ <!-- this is the placeholder for the modal box -->
+<div id="modal-editUser" class="modal hide">
+	<!-- content will go here -->
+</div>
+ <script type="text/javascript">	
+	jQuery( function($) { 
+		// find all tr's with a data-href attribute
+		$('.fifi').click( function() {
+			// copy the data-href value to the modal for later use
+			$('#modal-editUser').attr('data-href',$(this).attr('data-href'));
+			// show the modal window
+			$('#modal-editUser').modal({show: true , backdrop : true , keyboard: true});
+		}).find('a').hover( function() { 
+			// unbind it in case I put some a tags in the table row eventually
+			$(this).parents('tr').unbind('click'); 
+		}, function() { 
+			$(this).parents('tr').click( function() { 
+				// rebind it
+				$('#modal-editUser').attr('data-href',$(this).attr('data-href'));
+				$('#modal-editUser').modal({show: true , backdrop : true , keyboard: true});
+			}); 
+		});
+		
+		// when the modal show event fires, load the url that was copied to the data-href attribute
+		$('#modal-editUser').bind('show', function() {
+			$(this).load($(this).attr('data-href'));
+		});
+	});
+</script>
+</body> 
+ 
+</html> 
+</body> 
+</html>
