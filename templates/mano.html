@@ -9,6 +9,7 @@
 	<link type="text/css" rel="stylesheet" href="http://localhost/gr/public/assets//css//bootstrap-responsive.css?1340657948" />
 
 	<link type="text/css" rel="stylesheet" href="http://localhost/gr/public/assets//css//custom.css?1341508872" />
+	<link rel="stylesheet" href="http://localhost/gr/public/assets//css//bootstrap-image-gallery.css">
 
     <style> 
         body {
@@ -74,9 +75,11 @@
 
 
 <div id="container">
+<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
 <ul class="thumbnails">
 <% thumbnails %>
 </ul>
+</div>
 </div>
 <br />
 <div id="page_nav"><% page_navigation %></div>
@@ -95,7 +98,32 @@
  
 </div> 
  
- 
+ <!-- modal-gallery is the modal dialog used for the image gallery -->
+<div id="modal-gallery" class="modal modal-gallery hide fade">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body"><div class="modal-image"></div></div>
+    <div class="modal-footer">
+        <a class="btn modal-download" target="_blank">
+            <i class="icon-download"></i>
+            <span>Download</span>
+        </a>
+        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
+            <i class="icon-play icon-white"></i>
+            <span>Slideshow</span>
+        </a>
+        <a class="btn btn-info modal-prev">
+            <i class="icon-arrow-left icon-white"></i>
+            <span>Previous</span>
+        </a>
+        <a class="btn btn-primary modal-next">
+            <span>Next</span>
+            <i class="icon-arrow-right icon-white"></i>
+        </a>
+    </div>
+</div>
 <!-- Le javascript
  
  
@@ -112,36 +140,8 @@
 	<script type="text/javascript" src="http://localhost/gr/public/assets//js//bootbox.js?1340749448"></script>
 
 	<script type="text/javascript" src="http://localhost/gr/public/assets//js//custom.js?1341505700"></script>
-
- <!-- this is the placeholder for the modal box -->
-<div id="modal-editUser" class="modal hide">
-	<!-- content will go here -->
-</div>
- <script type="text/javascript">	
-	jQuery( function($) { 
-		// find all tr's with a data-href attribute
-		$('.fifi').click( function() {
-			// copy the data-href value to the modal for later use
-			$('#modal-editUser').attr('data-href',$(this).attr('data-href'));
-			// show the modal window
-			$('#modal-editUser').modal({show: true , backdrop : true , keyboard: true});
-		}).find('a').hover( function() { 
-			// unbind it in case I put some a tags in the table row eventually
-			$(this).parents('tr').unbind('click'); 
-		}, function() { 
-			$(this).parents('tr').click( function() { 
-				// rebind it
-				$('#modal-editUser').attr('data-href',$(this).attr('data-href'));
-				$('#modal-editUser').modal({show: true , backdrop : true , keyboard: true});
-			}); 
-		});
-		
-		// when the modal show event fires, load the url that was copied to the data-href attribute
-		$('#modal-editUser').bind('show', function() {
-			$(this).load($(this).attr('data-href'));
-		});
-	});
-</script>
+	<script src="http://localhost/gr/public/assets//js//load-image.min.js"></script>
+	<script src="http://localhost/gr/public/assets//js//bootstrap-image-gallery.js"></script>
 </body> 
  
 </html> 
