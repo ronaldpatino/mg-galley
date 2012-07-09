@@ -161,7 +161,11 @@ $dirs = array();
 						$dirs[] = array(
 							"name" => $file,
 							"date" => filemtime($currentdir . "/" . $file . "/folder.jpg"),
-							"html" => "<li class='thumbnail'><a href='?dir=" .ltrim($_GET['dir'] . "/" . $file, "/") . "'><em>" . padstring($file, $label_max_length) . "</em><span></span><img src='" . GALLERY_ROOT . "createthumb.php?filename=$currentdir/" . $file . "/folder.jpg&amp;size=$thumb_size'  alt='$label_loading' /></a></li>");
+							"html" => "<li class='thumbnail'><a href='?dir=" 
+							.ltrim($_GET['dir'] . "/" . $file, "/") . "'><em>" 
+							. padstring($file, $label_max_length) 
+							. "</em><span></span><img src='" . GALLERY_ROOT 
+							. "phpThumb.php?src=$currentdir/" . $file . "/folder.jpg&amp;w=$thumb_size&amp;h=$thumb_size&amp;zc=1'  alt='$label_loading' /></a></li>");
 					}  else
 					{
 					// Set thumbnail to first image found (if any):
@@ -174,8 +178,8 @@ $dirs = array();
 							"html" => "<li class='thumbnail'>"
 										. "<a href='?dir=" . ltrim($_GET['dir'] . "/" . $file, "/") . "'>" 										
 										. "<img src='" 
-										. GALLERY_ROOT . "createthumb.php?filename=$thumbdir/" . $file . "/" . $firstimage 
-										. "&amp;size=$thumb_size'  alt='$label_loading' /></a>"
+										. GALLERY_ROOT . "phpThumb.php?src=$thumbdir/" . $file . "/" . $firstimage 
+										. "&amp;w=$thumb_size&amp;h=$thumb_size&amp;zc=1'  alt='$label_loading' /></a>"
 										. "<a href='?dir=" . ltrim($_GET['dir'] . "/" . $file, "/") . "'>"
 										. "<h5>". padstring($file, $label_max_length)."</h5>"
 										
@@ -229,7 +233,8 @@ if (file_exists($currentdir ."/captions.txt"))
 							"size" => filesize($currentdir . "/" . $file),
 				  			"html" => 	"<li  class='thumbnail'>"
 										."<a href='" . $currentdir . "/" . $file . "' rel='lightbox[billeder]' title='$img_captions[$file]'>"
-										."<img class='detalle' data-original-title='".$file."' data-content='Dimensiones: media&lt;br/&gt;Seccion:deportes' src='" . GALLERY_ROOT . "createthumb.php?filename=" . $thumbdir . "/" . $file . "&amp;size=$thumb_size' alt='$label_loading' />"
+										."<img class='detalle' data-original-title='".$file."' "
+										."data-content='Dimensiones: media&lt;br/&gt;Seccion:deportes' src='" . GALLERY_ROOT . "phpThumb.php?src=" . $thumbdir . "/" . $file . "&amp;w=$thumb_size&amp;h=$thumb_size&amp;zc=1' alt='$label_loading' />"
 										."</a>"										
 										."</li>");
 		  			}
@@ -323,24 +328,27 @@ if (sizeof($dirs) + sizeof($files) > $thumbs_pr_page)
 //-----------------------
 if ($_GET['dir'] != "")
 {
-	$breadcrumb_navigation .= "<a href='?dir='>" . $label_home . "</a> > ";
+	$breadcrumb_navigation .= "<li><a href='?dir='>" . $label_home . "</a> <span class='divider'>/</span></li>";
 	$navitems = explode("/", $_REQUEST['dir']);
 	for($i = 0; $i < sizeof($navitems); $i++)
 	{
 		if ($i == sizeof($navitems)-1) $breadcrumb_navigation .= $navitems[$i];
 		else
 		{
-			$breadcrumb_navigation .= "<a href='?dir=";
+			$breadcrumb_navigation .= "<li><a href='?dir=";
 			for ($x = 0; $x <= $i; $x++)
 			{
 				$breadcrumb_navigation .= $navitems[$x];
 				if ($x < $i) $breadcrumb_navigation .= "/";
 			}
-			$breadcrumb_navigation .= "'>" . $navitems[$i] . "</a> > ";
+			$breadcrumb_navigation .= "'>" . $navitems[$i] . "</a><span class='divider'>/</span></li>";
 		}
 	}
-} else $breadcrumb_navigation .= $label_home;
-
+} 
+else 
+{
+	$breadcrumb_navigation .= $label_home;
+}
 //Include hidden links for all images BEFORE current page so lightbox is able to browse images on different pages
 for ($y = 0; $y < $offset_start - sizeof($dirs); $y++)
 {	
