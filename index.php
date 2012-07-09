@@ -182,7 +182,7 @@ $dirs = array();
 										. "&amp;w=$thumb_size&amp;h=$thumb_size&amp;zc=1'  alt='$label_loading' /></a>"
 										. "<a href='?dir=" . ltrim($_GET['dir'] . "/" . $file, "/") . "'>"
 										. "<h5>". padstring($file, $label_max_length)."</h5>"
-										
+										. '</a>'
 										. "</li>");
 						} else {
 						// If no folder.jpg or image is found, then display default icon:
@@ -232,10 +232,14 @@ if (file_exists($currentdir ."/captions.txt"))
 							"date" => filemtime($currentdir . "/" . $file),
 							"size" => filesize($currentdir . "/" . $file),
 				  			"html" => 	"<li  class='thumbnail'>"
-										."<a href='" . $currentdir . "/" . $file . "' rel='lightbox[billeder]' title='$img_captions[$file]'>"
+										."<a href='" . $currentdir . "/" . $file . "' rel='gallery' title='$img_captions[$file]'>"
 										."<img class='detalle' data-original-title='".$file."' "
 										."data-content='Dimensiones: media&lt;br/&gt;Seccion:deportes' src='" . GALLERY_ROOT . "phpThumb.php?src=" . $thumbdir . "/" . $file . "&amp;w=$thumb_size&amp;h=$thumb_size&amp;zc=1' alt='$label_loading' />"
-										."</a>"										
+										."</a>"											
+										.'<div class="btn-group" style="padding: 10px 0px 0px 40px;">' 
+										. '<a class="btn detalles_foto" rel="tooltip" data-original-title="Ver detalles foto" href="#"> <i class="icon-eye-open"></i></a>' 										
+                                        . '<a class="btn btn-warning" rel="tooltip" data-original-title="Foto a aprobar por el editor" href="#"><i class="icon-question-sign"></i></a>'
+										. '</div>'										
 										."</li>");
 		  			}
 					// Other filetypes
@@ -352,7 +356,7 @@ else
 //Include hidden links for all images BEFORE current page so lightbox is able to browse images on different pages
 for ($y = 0; $y < $offset_start - sizeof($dirs); $y++)
 {	
-	$breadcrumb_navigation .= "<a href='" . $currentdir . "/" . $files[$y]["name"] . "' rel='lightbox[billeder]' class='hidden' title='" . $img_captions[$files[$y]["name"]] . "'></a>";
+	$breadcrumb_navigation .= "<a href='" . $currentdir . "/" . $files[$y]["name"] . "' rel='gallery' class='hidden' title='" . $img_captions[$files[$y]["name"]] . "'></a>";
 }
 
 //-----------------------
