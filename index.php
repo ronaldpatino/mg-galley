@@ -1,4 +1,5 @@
 <?php
+
 /*
 MINIGAL NANO
 - A PHP/HTML/CSS based image gallery script

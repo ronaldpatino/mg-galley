@@ -70,7 +70,13 @@
  
     <div class="row"><!-- begin content--> 
 	
-<h1>Catalogo</h1>
+<h3>Catalogo</h3>
+<div class="alert alert-success" style="display:none;" id="alerta">
+	<a class="close" data-dismiss="alert" href="#">&times;</a>
+	<h4 class="alert-heading">Atenci&oacute;n!</h4>
+	<p id="mensaje_alerta"><p>
+</div>
+
 <% messages %>
 
 
@@ -106,22 +112,28 @@
     </div>
     <div class="modal-body"><div class="modal-image"></div></div>
     <div class="modal-footer">
-        <a class="btn modal-download" target="_blank">
-            <i class="icon-download"></i>
-            <span>Download</span>
-        </a>
-        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
-            <i class="icon-play icon-white"></i>
-            <span>Slideshow</span>
-        </a>
-        <a class="btn btn-info modal-prev">
-            <i class="icon-arrow-left icon-white"></i>
-            <span>Previous</span>
-        </a>
-        <a class="btn btn-primary modal-next">
-            <span>Next</span>
-            <i class="icon-arrow-right icon-white"></i>
-        </a>
+	
+		<form class="well form-inline" id="searchForm" action="/gr/foto/saludo">
+			<a class="btn modal-download" target="_blank">
+				<i class="icon-download"></i>
+				<span>Descargar</span>
+			</a>
+			<input name='periodista_id' id="periodista_id" value="1" type="hidden"/>
+			<select id="articulo_id">                
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>				
+
+			<select id="dimension_id">                
+                <option value="2">1 plana</option>
+                <option value="3">2 planas</option>
+                <option value="4">3 planas</option>
+            </select>				
+
+		  <button type="submit" class="btn btn-primary"><i class="icon-plus"></i> Agregar Imagen</button>
+		</form>	
     </div>
 </div>
 <!-- Le javascript
@@ -142,6 +154,39 @@
 	<script type="text/javascript" src="http://localhost/gr/public/assets//js//custom.js?1341505700"></script>
 	<script src="http://localhost/gr/public/assets//js//load-image.min.js"></script>
 	<script src="http://localhost/gr/public/assets//js//bootstrap-image-gallery.js"></script>
+	
+<script>
+
+  /* attach a submit handler to the form */
+  $("#searchForm").submit(function(event) {
+	console.log("la imagen " + $('img.in').attr("src"));
+    /* stop form from submitting normally */
+    event.preventDefault(); 
+        
+    /* get some values from elements on the page: */
+    var $form = $( this ),
+        term =  $("#articulo_id option:selected").val(),
+		imagen = $('img.in').attr("src"),
+        url = $form.attr( 'action' );
+		periodista_id = $("#periodista_id").val(),
+		dimension_id = $("#dimension_id option:selected").val()
+
+    /* Send the data using post and put the results in a div */
+    $.post( url, 
+			{ 
+				articulo_id: term,
+				imagen: imagen,
+				periodista_id:periodista_id,
+				dimension_id: dimension_id
+			},
+			function( data ) {								
+				$("#mensaje_alerta" ).html("La imagen " + imagen + " ha sido agregada al articulo: " + $("#articulo_id option:selected").val());
+				$( "#alerta" ).show();
+				$('#modal-gallery').modal('hide')								
+			}
+    );
+  });
+</script>	
 </body> 
  
 </html> 
