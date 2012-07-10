@@ -77,6 +77,12 @@
 	<p id="mensaje_alerta"><p>
 </div>
 
+<div class="alert alert-error" style="display:none;" id="alerta_error">
+  <a class="close" data-dismiss="alert" href="#">&times;</a>
+  <h4 class="alert-heading">Error!</h4>
+  <p id="mensaje_error"><p>
+</div>
+
 <% messages %>
 
 
@@ -113,7 +119,7 @@
     <div class="modal-body"><div class="modal-image"></div></div>
     <div class="modal-footer">
 	
-		<form class="well form-inline" id="searchForm" action="/gr/foto/saludo">
+		<form class="well form-inline" id="searchForm" action="/gr/foto/add/">
 			<a class="btn modal-download" target="_blank">
 				<i class="icon-download"></i>
 				<span>Descargar</span>
@@ -158,8 +164,7 @@
 <script>
 
   /* attach a submit handler to the form */
-  $("#searchForm").submit(function(event) {
-	console.log("la imagen " + $('img.in').attr("src"));
+  $("#searchForm").submit(function(event) {	
     /* stop form from submitting normally */
     event.preventDefault(); 
         
@@ -179,10 +184,29 @@
 				periodista_id:periodista_id,
 				dimension_id: dimension_id
 			},
-			function( data ) {								
-				$("#mensaje_alerta" ).html("La imagen " + imagen + " ha sido agregada al articulo: " + $("#articulo_id option:selected").val());
-				$( "#alerta" ).show();
-				$('#modal-gallery').modal('hide')								
+			function( data ) {
+				
+				switch(data){							
+					case '0':
+						console.log(data);
+						$("#mensaje_alerta" ).html("La imagen " + imagen + " ha sido agregada al articulo: " + $("#articulo_id option:selected").val());
+						$( "#alerta" ).show();
+						$('#modal-gallery').modal('hide');
+					break;
+					case '1':
+						console.log(data);
+						$("#mensaje_error" ).html("La imagen " + imagen + " no pudo ser agregada al articulo: " + $("#articulo_id option:selected").val());
+						$( "#alerta_error" ).show();
+						$('#modal-gallery').modal('hide');
+					break;
+					case '2':	
+						console.log(data);
+						$("#mensaje_error" ).html("La imagen " + imagen + " ya esta agregada al articulo: " + $("#articulo_id option:selected").val());
+						$( "#alerta_error" ).show();
+						$('#modal-gallery').modal('hide');
+					break;
+				}		
+
 			}
     );
   });
