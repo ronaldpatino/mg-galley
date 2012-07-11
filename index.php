@@ -1,5 +1,4 @@
 <?php
-
 /*
 MINIGAL NANO
 - A PHP/HTML/CSS based image gallery script
@@ -239,10 +238,6 @@ if (file_exists($currentdir ."/captions.txt"))
 										."data-content='Dimensiones: {$img_width} por {$img_height} pixels' src='" 
 										. GALLERY_ROOT . "phpThumb.php?src=" . $thumbdir . "/" . $file . "&amp;w=$thumb_size&amp;h=$thumb_size&amp;zc=1' alt='$label_loading' />"
 										."</a>"											
-										.'<div class="btn-group" style="padding: 10px 0px 0px 40px;">' 
-										. '<a class="btn detalles_foto" rel="gallery" data-original-title="Ver detalles foto" href="'.$currentdir . "/" . $file.'" > <i class="icon-eye-open"></i></a>' 										
-                                        . '<a class="btn btn-warning" rel="tooltip" data-original-title="Foto a aprobar por el editor" href="#"><i class="icon-question-sign"></i></a>'
-										. '</div>'										
 										."</li>");
 		  			}
 					// Other filetypes

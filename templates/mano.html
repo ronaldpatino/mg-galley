@@ -125,19 +125,10 @@
 				<span>Descargar</span>
 			</a>
 			<input name='periodista_id' id="periodista_id" value="1" type="hidden"/>
-			<select id="articulo_id">                
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>				
-
-			<select id="dimension_id">                
-                <option value="2">1 plana</option>
-                <option value="3">2 planas</option>
-                <option value="4">3 planas</option>
-            </select>				
-
+			
+			<span id="articulo_container"></span>
+			<span id="dimension_container"></span>
+			
 		  <button type="submit" class="btn btn-primary"><i class="icon-plus"></i> Agregar Imagen</button>
 		</form>	
     </div>
@@ -163,6 +154,59 @@
 	
 <script>
 
+	$(document).ready(function() {
+		/*
+		$.get('/gr/user/estaactivo/', 
+			
+			
+			function(data) {
+				console.log(data);
+				if(data.user_id != 0)
+				{		
+					$.get('/gr/foto/getarticulos/1', 
+						function(data) {
+							$('#articulo_container').html(data);
+						});				
+					$.get('/gr/dimension/getdimensiones/', 
+						function(data) {
+							$('#dimension_container').html(data);
+						});			  
+				}		
+				else
+				{
+					alert("no logeado");
+				}
+		});		
+		*/
+		
+		$.ajax({
+			url: '/gr/user/estaactivo/',
+			success:
+				function(data) {
+					console.log(data);
+					if(data.user_id != 0)
+					{		
+						$.get('/gr/foto/getarticulos/1', 
+							function(data) {
+								$('#articulo_container').html(data);
+							});				
+						$.get('/gr/dimension/getdimensiones/', 
+							function(data) {
+								$('#dimension_container').html(data);
+							});			  
+					}		
+					else
+					{
+						alert("no logeado");
+						var url = "http://localhost/gr/";    
+						$(location).attr('href',url);
+					}
+				},
+			dataType: 'json'						
+		});
+		
+	});
+
   /* attach a submit handler to the form */
   $("#searchForm").submit(function(event) {	
     /* stop form from submitting normally */
@@ -170,11 +214,11 @@
         
     /* get some values from elements on the page: */
     var $form = $( this ),
-        term =  $("#articulo_id option:selected").val(),
+        term =  $("#form_articulo_id option:selected").val(),
 		imagen = $('img.in').attr("src"),
         url = $form.attr( 'action' );
 		periodista_id = $("#periodista_id").val(),
-		dimension_id = $("#dimension_id option:selected").val()
+		dimension_id = $("#form_dimension_id option:selected").val()
 
     /* Send the data using post and put the results in a div */
     $.post( url, 
