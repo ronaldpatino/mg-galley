@@ -1,4 +1,5 @@
 <?php
+
 /*
 MINIGAL NANO
 - A PHP/HTML/CSS based image gallery script
@@ -136,8 +137,8 @@ if (ini_get('allow_url_fopen') == "1") {
 }
 
 if (!defined("GALLERY_ROOT")) define("GALLERY_ROOT", "");
-$thumbdir = rtrim('photos' . "/" .$_REQUEST["dir"],"/");
-$thumbdir = str_replace("/..", "", $thumbdir); // Prevent looking at any up-level folders
+$thumbdir = rtrim('../photos' . "/" .$_REQUEST["dir"],"/");
+//$thumbdir = str_replace("/..", "", $thumbdir); // Prevent looking at any up-level folders
 $currentdir = GALLERY_ROOT . $thumbdir;
 
 //-----------------------
