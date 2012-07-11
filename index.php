@@ -153,7 +153,7 @@ $dirs = array();
 // 1. LOAD FOLDERS
 		if (is_directory($currentdir . "/" . $file))
 			{ 
-				if ($file != "." && $file != ".." )
+				if ($file != "." && $file != ".."  & $file != "cache")
 				{
 					checkpermissions($currentdir . "/" . $file); // Check for correct file permission
 					// Set thumbnail to folder.jpg if found:
